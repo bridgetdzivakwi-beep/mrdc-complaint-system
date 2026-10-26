@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRDC Complaint System</title>
+<style>
+body{font-family:Arial;padding:20px;max-width:600px;margin:auto;background:#f5f5f5}
+form{background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px #ccc}
+input,select,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+button{background:#cc0000;color:white;padding:12px;border:none;width:100%;border-radius:5px;font-size:16px;cursor:pointer;font-weight:bold}
+button:hover{background:#990000} h2{text-align:center;color:#cc0000}
+.success{background:#d4edda;color:#155724;padding:12px;border-radius:5px;display:none;margin-top:10px;text-align:center;border:1px solid #c3e6cb}
+a{color:#cc0000}
+</style>
+</head>
+<body>
+<h2>🏛️ Makonde RDC - Submit Complaint</h2>
+<form id="complaintForm">
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="text" id="phone" placeholder="Phone e.g 0782964326" required>
+<select id="ward" required>
+<option value="">Select Ward</option>
+<option>Ward 1</option><option>Ward 2</option><option>Ward 3</option><option>Ward 4</option><option>Ward 5</option><option>Ward 6</option><option>Ward 7</option><option>Ward 8</option><option>Ward 9</option><option>Ward 10</option>
+<option>Ward 11</option><option>Ward 12</option><option>Ward 13</option><option>Ward 14</option><option>Ward 15</option>
+</select>
+<select id="category" required>
+<option value="">Select Category</option>
+<option>Waste Management</option>
+<option>Water Supply</option>
+<option>Roads</option>
+<option>Health Services</option>
+<option>Other</option>
+</select>
+<textarea id="message" placeholder="Write your complaint here..." rows="4" required></textarea>
+<button type="submit" id="btn">Submit Complaint</button>
+<div id="success" class="success">✅ Complaint sent to MRDC Office! Thank you.</div>
+</form>
+<p style="text-align:center;margin-top:15px"><a href="admin.html">Office Admin Dashboard →</a></p>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzy2as-gYd1gcTYNgCK6MR3g3dkuiR1lPveC68xfMHfFPMIM0zp_xTu3muXYN56fK5qKA/exec";
+document.getElementById('complaintForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('btn');
+  btn.innerText="Sending to Office...";
+  btn.disabled=true;
+  const data = {
+    name:document.getElementById('name').value,
+    phone:document.getElementById('phone').value,
+    ward:document.getElementById('ward').value,
+    category:document.getElementById('category').value,
+    message:document.getElementById('message').value
+  };
+  try{
+    await fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(data)});
+    document.getElementById('success').style.display='block';
+    document.getElementById('complaintForm').reset();
+    setTimeout(()=>{document.getElementById('success').style.display='none';},4000);
+  }catch(err){ alert("Failed - check internet connection"); }
+  btn.innerText="Submit Complaint";
+  btn.disabled=false;
+});
+</script>
+</body>
+</html>
