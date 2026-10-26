@@ -1,0 +1,15 @@
+*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{margin:0;background:#f4f6f8}
+header{background:#a6192e;color:white;display:flex;align-items:center;gap:15px;padding:15px 25px}
+.logo{width:80px;height:auto;max-width:80px;background:white;border-radius:8px;padding:5px}
+header h1{margin:0;font-size:22px}
+header p{margin:2px 0 0 0;font-size:14px;opacity:0.9}
+.container{max-width:700px;margin:25px auto;padding:0 15px}
+.form-card{background:white;padding:25px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.form-card h2{margin-top:0;color:#a6192e;text-align:center}
+label{display:block;margin-top:12px;font-weight:600;font-size:14px}
+input,select,textarea{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:14px}
+textarea{resize:vertical}
+button{margin-top:20px;width:100%;background:#a6192e;color:white;border:none;padding:12px;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer}
+button:hover{background:#7f1222}
+#status{text-align:center;margin-top:15px;font-weight:bold}
