@@ -4,13 +4,21 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRDC Admin Office</title>
  <script>
-// ADMIN LOCK - Makonde RDC
-const ADMIN_PASS = "Makonde@2026";
-let input = prompt("🔒 Enter MRDC Admin Password:");
-if (input !== ADMIN_PASS) {
-  document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px'>⛔ Access Denied<br><br><a href='index.html'>Go to Citizen Form</a></h2>";
-  throw new Error("Access denied");
-}
+// === MRDC SECURE LOCK - FIXED ===
+(function() {
+  const ADMIN_PASS = "Makonde@2026"; // Change this!
+  
+  const input = prompt("🔒 MRDC Admin - Enter Password:");
+  
+  if (input !== ADMIN_PASS) {
+    alert("⛔ Access Denied. Redirecting to Citizen Form.");
+    // Stop loading complaints and force redirect
+    window.stop();
+    document.documentElement.innerHTML = '<h1 style="text-align:center;margin-top:150px;font-family:Arial">⛔ Access Denied<br><br><a href=index.html>Go to Citizen Form</a></h1>';
+    window.location.replace("index.html");
+    throw new Error("Blocked");
+  }
+})();
 </script> 
 <style>
 body{font-family:Arial;padding:15px;background:#f5f5f5}
