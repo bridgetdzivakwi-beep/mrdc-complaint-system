@@ -4,21 +4,43 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MRDC Admin Office</title>
  <script>
-// === MRDC SECURE LOCK - FIXED ===
-(function() {
-  const ADMIN_PASS = "Makonde@2026"; // Change this!
-  
-  const input = prompt("🔒 MRDC Admin - Enter Password:");
-  
-  if (input !== ADMIN_PASS) {
-    alert("⛔ Access Denied. Redirecting to Citizen Form.");
-    // Stop loading complaints and force redirect
-    window.stop();
-    document.documentElement.innerHTML = '<h1 style="text-align:center;margin-top:150px;font-family:Arial">⛔ Access Denied<br><br><a href=index.html>Go to Citizen Form</a></h1>';
-    window.location.replace("index.html");
-    throw new Error("Blocked");
+// We will handle login with nice form, not pop-up
+window.MRDC_PASS = "Makonde@2026";
+</script>
+<style>
+#lockScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;z-index:99999}
+#lockBox{background:white;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);text-align:center;width:90%;max-width:350px}
+#lockBox input{width:100%;padding:12px;margin:15px 0;border:1px solid #ccc;border-radius:8px}
+#lockBox button{width:100%;padding:12px;background:#cc0000;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
+</style>
+<div id="lockScreen">
+  <div id="lockBox">
+    <img src="logo.jpg" style="width:60px"><br>
+    <h3 style="color:#cc0000">MRDC Admin Login</h3>
+    <p style="font-size:13px">For Officials Only</p>
+    <input type="password" id="passInput" placeholder="Enter Password">
+    <button onclick="checkPass()">Login</button>
+    <p id="err" style="color:red;font-size:12px;display:none">Wrong password</p>
+  </div>
+</div>
+<script>
+function checkPass(){
+  let p = document.getElementById('passInput').value;
+  if(p === window.MRDC_PASS){
+    document.getElementById('lockScreen').style.display='none';
+  } else {
+    document.getElementById('err').style.display='block';
+    // Wrong 3 times = kick back to citizen form
+    window.wrong = (window.wrong||0)+1;
+    if(window.wrong>=3){
+      window.location.replace("index.html");
+    }
   }
-})();
+}
+// Hide complaints until login
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('passInput').focus();
+});
 </script> 
 <style>
 body{font-family:Arial;padding:15px;background:#f5f5f5}
